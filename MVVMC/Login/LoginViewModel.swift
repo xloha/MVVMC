@@ -27,7 +27,7 @@ protocol LoginViewModelOutput {
 typealias LoginViewModelLogic = LoginViewModelInput & LoginViewModelOutput
 
 class LoginViewModel:
-    ViewModel<LoginViewModelDependency, LoginCoordinateLogic>,
+    ViewModel<LoginViewModelDependency, LoginCoordinatable>,
     LoginViewModelLogic
 {
     private let disposeBag = DisposeBag()
@@ -42,7 +42,7 @@ class LoginViewModel:
 
     override init(
         dependency: LoginViewModelDependency,
-        coordinator: LoginCoordinateLogic
+        coordinator: LoginCoordinatable
     ) {
         self.loginType = .init(value: dependency.loginType)
         super.init(dependency: dependency, coordinator: coordinator)

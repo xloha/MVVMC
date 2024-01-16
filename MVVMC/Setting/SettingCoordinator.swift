@@ -11,7 +11,7 @@ import RxCocoa
 
 // MARK: - SettingCoordinateLogic
 
-protocol SettingCoordinateLogic: CoordinateLogic {
+protocol SettingCoordinatable: Coordinatable {
     // TODO: Declare CoordinateLogic
 }
 
@@ -20,7 +20,7 @@ protocol SettingCoordinateLogic: CoordinateLogic {
 final class SettingCoordinator:
     DIContainer<SettingComponent>,
     Coordinator,
-    SettingCoordinateLogic
+    SettingCoordinatable
 {
     var navigationController: UINavigationController
 
@@ -41,7 +41,7 @@ final class SettingCoordinator:
         )
         let viewController = SettingViewController(viewModel: viewModel)
 
-        navigationController.present(
+        navigationController.start(
             viewController,
             presentationType: presentationType
         )

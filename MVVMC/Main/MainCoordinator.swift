@@ -9,23 +9,23 @@ import UIKit
 import RxSwift
 import RxCocoa
 
-protocol MainCoordinateLogic: CoordinateLogic {
+protocol MainCoordinatable: Coordinatable {
     var routeToLogin: PublishRelay<Void> { get }
     var routeToProfile: PublishRelay<Void> { get }
     var routeToSetting: PublishRelay<Void> { get }
 }
 
-protocol MainCompletionCoordinateLogic: CoordinateCompletionLogic {
-    var routeToLogin: PublishRelay<PresentationType> { get }
+protocol MainParentCoordinatorBindable: ParentCoordinatorBindable {
+    func bindRouteToLogin(_ loginRouter: PublishRelay<PresentationType>)
 }
 
 final class MainCoordinator:
     DIContainer<MainComponent>,
     Coordinator,
-    MainCoordinateLogic
+    MainCoordinatable,
+    MainParentCoordinatorBindable
 {
     var navigationController: UINavigationController
-    weak var mainCompletionCoordinateLogic: MainCompletionCoordinateLogic?
     private let disposeBag = DisposeBag()
 
     // MARK: - MainCoordinateLogic
@@ -36,11 +36,9 @@ final class MainCoordinator:
 
     init(
         component: MainComponent,
-        navigationController: UINavigationController,
-        mainCompletionCoordinateLogic: MainCompletionCoordinateLogic
+        navigationController: UINavigationController
     ) {
         self.navigationController = navigationController
-        self.mainCompletionCoordinateLogic = mainCompletionCoordinateLogic
         super.init(component: component)
 
         bindCoordinateLogic()
@@ -54,12 +52,23 @@ final class MainCoordinator:
         let viewController = MainViewController(viewModel: viewModel)
         viewController.modalPresentationStyle = .fullScreen
 
-        navigationController.present(
+        navigationController.start(
             viewController,
             presentationType: presentationType
         )
     }
 
+    // MARK: - MainParentCoordinatorBindable
+
+    func bindRouteToLogin(_ loginRouter: PublishRelay<PresentationType>) {
+        routeToLogin
+            .map { _ in .setVC(animated: true)}
+            .bind(to: loginRouter)
+            .disposed(by: disposeBag)
+    }
+}
+
+private extension MainCoordinator {
     func bindCoordinateLogic() {
         routeToProfile
             .bind(with: self) { owner, _ in
@@ -72,19 +81,13 @@ final class MainCoordinator:
                 owner.navigateToSetting(.push(animated: true))
             }
             .disposed(by: disposeBag)
-
-        if let mainCompletionCoordinateLogic {
-            routeToLogin
-                .map { _ in .setVC(animated: true) }
-                .bind(to: mainCompletionCoordinateLogic.routeToLogin)
-                .disposed(by: disposeBag)
-        }
     }
-}
 
-private extension MainCoordinator {
     func navigateToProfile(_ presentationType: PresentationType) {
-        navigationController.present(ProfileViewController(), presentationType: presentationType)
+        navigationController.start(
+            ProfileViewController(),
+            presentationType: presentationType
+        )
     }
 
     func navigateToSetting(_ presentationType: PresentationType) {

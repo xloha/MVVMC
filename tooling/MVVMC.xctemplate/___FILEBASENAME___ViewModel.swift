@@ -28,7 +28,7 @@ typealias ___VARIABLE_productName___ViewModelLogic = ___VARIABLE_productName___V
 // MARK: - ViewModel
 
 final class ___VARIABLE_productName___ViewModel:
-    ViewModel<___VARIABLE_productName___ViewModelDependency, ___VARIABLE_productName___CoordinateLogic>,
+    ViewModel<___VARIABLE_productName___ViewModelDependency, ___VARIABLE_productName___Coordinatable>,
     ___VARIABLE_productName___ViewModelLogic
 {
     private let disposeBag = DisposeBag()

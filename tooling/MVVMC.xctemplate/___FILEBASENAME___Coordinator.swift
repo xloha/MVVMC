@@ -4,10 +4,14 @@ import UIKit
 import RxSwift
 import RxCocoa
 
-// MARK: - ___VARIABLE_productName___CoordinateLogic
+// MARK: - ___VARIABLE_productName___Coordinatable
 
-protocol ___VARIABLE_productName___CoordinateLogic: CoordinateLogic {
-    // TODO: Declare CoordinateLogic
+protocol ___VARIABLE_productName___Coordinatable: Coordinatable {
+    // TODO: Declare transition event
+}
+
+protocol ___VARIABLE_productName___ParentCoordinatorBindable: ParentCoordinatorBindable {
+    // TODO: Declare bind transition event to parent coordinator
 }
 
 // MARK: - ___VARIABLE_productName___Coordinator
@@ -15,7 +19,8 @@ protocol ___VARIABLE_productName___CoordinateLogic: CoordinateLogic {
 final class ___VARIABLE_productName___Coordinator:
     DIContainer<___VARIABLE_productName___Component>,
     Coordinator,
-    ___VARIABLE_productName___CoordinateLogic
+    ___VARIABLE_productName___Coordinatable,
+    ___VARIABLE_productName___ParentCoordinatorBindable
 {
     var navigationController: UINavigationController
 
@@ -30,12 +35,12 @@ final class ___VARIABLE_productName___Coordinator:
     }
 
     func start(_ presentationType: PresentationType) {
-        // TODO: - Create ViewModel & ViewController And Present ViewController
+        // TODO: - Create viewModel & viewController and start viewController
     }
 }
 
 private extension ___VARIABLE_productName___Coordinator {
     func bindCoordinateLogic() {
-        // TODO: - Bind Coordinate Logic
+        // TODO: - Bind coordinate Logic
     }
 }

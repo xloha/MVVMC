@@ -1,5 +1,5 @@
 //
-//  ViewModelLogic.swift
+//  ViewModelable.swift
 //  MVVMC
 //
 //  Created by xloha on 2024/01/08.

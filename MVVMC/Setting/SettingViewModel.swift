@@ -33,7 +33,7 @@ typealias SettingViewModelLogic = SettingViewModelInput & SettingViewModelOutput
 // MARK: - ViewModel
 
 final class SettingViewModel:
-    ViewModel<SettingViewModelDependency, SettingCoordinateLogic>,
+    ViewModel<SettingViewModelDependency, SettingCoordinatable>,
     SettingViewModelLogic
 {
     private let disposeBag = DisposeBag()

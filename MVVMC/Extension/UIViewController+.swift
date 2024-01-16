@@ -8,7 +8,10 @@
 import UIKit
 
 extension UIViewController {
-    func present(_ viewControllerToPresent: UIViewController, presentationType: PresentationType) {
+    func start(
+        _ viewControllerToPresent: UIViewController,
+        presentationType: PresentationType
+    ) {
         switch presentationType {
         case .present(let animated):
             present(

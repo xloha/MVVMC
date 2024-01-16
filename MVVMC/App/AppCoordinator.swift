@@ -17,31 +17,25 @@ final class AppComponent:
     var loginType: String = "FACE_ID"
 }
 
-protocol AppCoordinateLogic:
-    CoordinateLogic
-{
+protocol AppCoordinatable: Coordinatable {
     var routeToLogin: PublishRelay<PresentationType> { get }
+    var routeToMain: PublishRelay<String> { get }
 }
 
 class AppCoordinator:
     DIContainer<AppComponent>,
     Coordinator,
-    AppCoordinateLogic,
-    LoginCompletionCoordinateLogic,
-    MainCompletionCoordinateLogic
+    AppCoordinatable
 {
     var navigationController: UINavigationController = UINavigationController(
         rootViewController: ViewController()
     )
     private let disposeBag = DisposeBag()
 
-    // MARK: - AppCoordinateLogic & MainCompletionCoordinateLogic
+    // MARK: - AppCoordinateLogic
 
-    var routeToLogin = PublishRelay<PresentationType>()
-
-    // MARK: - LoginCompletionCoordinateLogic
-
-    var didFinishLogin: PublishRelay<String> = .init()
+    var routeToLogin: PublishRelay<PresentationType> = .init()
+    var routeToMain: PublishRelay<String> = .init()
 
 
     override init(component: AppComponent) {
@@ -53,14 +47,16 @@ class AppCoordinator:
     func start(_ presentationType: PresentationType) {
         routeToLogin.accept(presentationType)
     }
+}
 
+private extension AppCoordinator {
     func bindCoordinateLogic() {
         routeToLogin.bind(with: self) { owner, presentationType in
             owner.navigateToLogin(presentationType)
         }
         .disposed(by: disposeBag)
 
-        didFinishLogin.bind(with: self) { owner, name in
+        routeToMain.bind(with: self) { owner, name in
             owner.navigateToMain(
                 name: name,
                 presentationType: .setVC(animated: true)
@@ -68,16 +64,15 @@ class AppCoordinator:
         }
         .disposed(by: disposeBag)
     }
-}
 
-private extension AppCoordinator {
     func navigateToLogin(_ presentationType: PresentationType) {
         let component = LoginComponent(dependency: component)
         let coordinator = LoginCoordinator(
             component: component,
-            navigationController: navigationController,
-            loginCompletionDelegate: self
+            navigationController: navigationController
         )
+
+        coordinator.bindRouteToMain(routeToMain)
         coordinator.start(presentationType)
     }
 
@@ -88,10 +83,10 @@ private extension AppCoordinator {
         )
         let coordinator = MainCoordinator(
             component: component,
-            navigationController: navigationController,
-            mainCompletionCoordinateLogic: self
+            navigationController: navigationController
         )
 
+        coordinator.bindRouteToLogin(routeToLogin)
         coordinator.start(presentationType)
     }
 }

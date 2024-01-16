@@ -18,9 +18,9 @@
 		541C25492B4F704C0042438C /* RxCocoa in Frameworks */ = {isa = PBXBuildFile; productRef = 541C25482B4F704C0042438C /* RxCocoa */; };
 		541C254B2B4F704C0042438C /* RxRelay in Frameworks */ = {isa = PBXBuildFile; productRef = 541C254A2B4F704C0042438C /* RxRelay */; };
 		541C25562B4F70E30042438C /* DIContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 541C254F2B4F70E30042438C /* DIContainer.swift */; };
-		541C25572B4F70E30042438C /* ViewModelLogic.swift in Sources */ = {isa = PBXBuildFile; fileRef = 541C25502B4F70E30042438C /* ViewModelLogic.swift */; };
+		541C25572B4F70E30042438C /* ViewModelable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 541C25502B4F70E30042438C /* ViewModelable.swift */; };
 		541C25582B4F70E30042438C /* Component.swift in Sources */ = {isa = PBXBuildFile; fileRef = 541C25512B4F70E30042438C /* Component.swift */; };
-		541C25592B4F70E30042438C /* CoordinateLogic.swift in Sources */ = {isa = PBXBuildFile; fileRef = 541C25522B4F70E30042438C /* CoordinateLogic.swift */; };
+		541C25592B4F70E30042438C /* Coordinatable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 541C25522B4F70E30042438C /* Coordinatable.swift */; };
 		541C255A2B4F70E30042438C /* Dependency.swift in Sources */ = {isa = PBXBuildFile; fileRef = 541C25532B4F70E30042438C /* Dependency.swift */; };
 		541C255B2B4F70E30042438C /* Coordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 541C25552B4F70E30042438C /* Coordinator.swift */; };
 		541C25622B4F72D90042438C /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 541C255E2B4F72D90042438C /* LoginViewController.swift */; };
@@ -71,9 +71,9 @@
 		541C25362B4F6FF70042438C /* MVVMCUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MVVMCUITests.swift; sourceTree = "<group>"; };
 		541C25382B4F6FF70042438C /* MVVMCUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MVVMCUITestsLaunchTests.swift; sourceTree = "<group>"; };
 		541C254F2B4F70E30042438C /* DIContainer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DIContainer.swift; sourceTree = "<group>"; };
-		541C25502B4F70E30042438C /* ViewModelLogic.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViewModelLogic.swift; sourceTree = "<group>"; };
+		541C25502B4F70E30042438C /* ViewModelable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViewModelable.swift; sourceTree = "<group>"; };
 		541C25512B4F70E30042438C /* Component.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Component.swift; sourceTree = "<group>"; };
-		541C25522B4F70E30042438C /* CoordinateLogic.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CoordinateLogic.swift; sourceTree = "<group>"; };
+		541C25522B4F70E30042438C /* Coordinatable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Coordinatable.swift; sourceTree = "<group>"; };
 		541C25532B4F70E30042438C /* Dependency.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Dependency.swift; sourceTree = "<group>"; };
 		541C25552B4F70E30042438C /* Coordinator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Coordinator.swift; sourceTree = "<group>"; };
 		541C255E2B4F72D90042438C /* LoginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
@@ -183,11 +183,11 @@
 			children = (
 				541C25682B4F76290042438C /* Entity */,
 				541C25542B4F70E30042438C /* Coordinate */,
-				541C25522B4F70E30042438C /* CoordinateLogic.swift */,
+				541C25522B4F70E30042438C /* Coordinatable.swift */,
 				541C25512B4F70E30042438C /* Component.swift */,
 				541C25532B4F70E30042438C /* Dependency.swift */,
 				541C254F2B4F70E30042438C /* DIContainer.swift */,
-				541C25502B4F70E30042438C /* ViewModelLogic.swift */,
+				541C25502B4F70E30042438C /* ViewModelable.swift */,
 			);
 			path = Base;
 			sourceTree = "<group>";
@@ -410,8 +410,8 @@
 				541C25792B4FBBF10042438C /* ProfileViewController.swift in Sources */,
 				541C256D2B4F78490042438C /* UIViewController+.swift in Sources */,
 				541C255A2B4F70E30042438C /* Dependency.swift in Sources */,
-				541C25592B4F70E30042438C /* CoordinateLogic.swift in Sources */,
-				541C25572B4F70E30042438C /* ViewModelLogic.swift in Sources */,
+				541C25592B4F70E30042438C /* Coordinatable.swift in Sources */,
+				541C25572B4F70E30042438C /* ViewModelable.swift in Sources */,
 				541C25732B4F9EA60042438C /* MainComponent.swift in Sources */,
 				541C25742B4F9EA60042438C /* MainViewController.swift in Sources */,
 				541C25632B4F72D90042438C /* LoginComponent.swift in Sources */,

@@ -30,7 +30,7 @@ protocol MainViewModelOutput {
 typealias MainViewModelLogic = MainViewModelInput & MainViewModelOutput
 
 class MainViewModel:
-    ViewModel<MainViewModelDependency, MainCoordinateLogic>,
+    ViewModel<MainViewModelDependency, MainCoordinatable>,
     MainViewModelLogic
 {
     private let disposeBag = DisposeBag()
@@ -45,7 +45,7 @@ class MainViewModel:
 
     var customerName: BehaviorRelay<String>
 
-    override init(dependency: MainViewModelDependency, coordinator: MainCoordinateLogic) {
+    override init(dependency: MainViewModelDependency, coordinator: MainCoordinatable) {
         self.customerName = .init(value: dependency.customerName)
         super.init(dependency: dependency, coordinator: coordinator)
 

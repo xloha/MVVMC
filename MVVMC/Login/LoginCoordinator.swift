@@ -9,22 +9,21 @@ import UIKit
 import RxSwift
 import RxCocoa
 
-protocol LoginCoordinateLogic: CoordinateLogic {
+protocol LoginCoordinatable: Coordinatable {
     var routeToMain: PublishRelay<Void> { get }
 }
 
-// Note: If Needed
-protocol LoginCompletionCoordinateLogic: CoordinateCompletionLogic {
-    var didFinishLogin: PublishRelay<String> { get }
+protocol LoginParentCoordinatorBindable: ParentCoordinatorBindable {
+    func bindRouteToMain(_ mainRouter: PublishRelay<String>)
 }
 
 final class LoginCoordinator:
     DIContainer<LoginComponent>,
     Coordinator,
-    LoginCoordinateLogic
+    LoginCoordinatable,
+    LoginParentCoordinatorBindable
 {
     var navigationController: UINavigationController
-    weak var loginCompletionDelegate: LoginCompletionCoordinateLogic?
 
     private let disposeBag = DisposeBag()
 
@@ -34,14 +33,10 @@ final class LoginCoordinator:
 
     init(
         component: LoginComponent,
-        navigationController: UINavigationController,
-        loginCompletionDelegate: LoginCompletionCoordinateLogic
+        navigationController: UINavigationController
     ) {
         self.navigationController = navigationController
-        self.loginCompletionDelegate = loginCompletionDelegate
         super.init(component: component)
-
-        bindCoordinateLogic()
     }
 
     func start(_ presentationType: PresentationType) {
@@ -52,18 +47,18 @@ final class LoginCoordinator:
         let viewController = LoginViewController(viewModel: viewModel)
         viewController.modalPresentationStyle = .fullScreen
         
-        navigationController.present(
+        navigationController.start(
             viewController,
             presentationType: presentationType
         )
     }
 
-    func bindCoordinateLogic() {
-        if let loginCompletionDelegate {
-            routeToMain
-                .map { _ in "XLOHA" }
-                .bind(to: loginCompletionDelegate.didFinishLogin)
-                .disposed(by: disposeBag)
-        }
+    // MARK: - LoginParentCoordinatorBindable
+
+    func bindRouteToMain(_ mainRouter: PublishRelay<String>) {
+        routeToMain
+            .map { _ in "XLOHA" }
+            .bind(to: mainRouter)
+            .disposed(by: disposeBag)
     }
 }
